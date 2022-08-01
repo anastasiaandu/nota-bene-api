@@ -16,7 +16,7 @@ exports.getSingleList = (req, res) => {
         .where({ id: req.params.listId })
         .select('id', 'label', 'list', 'user_id', 'updated_at')
         .then((data) => {
-            res.status(200).json(data);
+            res.status(200).json(data[0]);
         })
         .catch((err) => res.status(404).send(`Error retrieving list: ${err}`));
 };
