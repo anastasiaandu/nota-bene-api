@@ -6,9 +6,9 @@ const knex = require('knex')(require('../knexfile').development);
 require('dotenv').config();
 
 exports.addUser = (req, res) => {
-    const { firstName, lastName, email, password } = req.body;
+    const { username, email, password } = req.body;
 
-    if (!firstName || !lastName || !email || !password) {
+    if (!username || !email || !password) {
         return res.status(400).send('Please enter required fields to create an account');
     }
 
@@ -57,7 +57,30 @@ exports.loginUser = (req, res) => {
 
             res.status(200).json({ token: token });
         })
-        .catch(() => {
-            return res.status(401).send('Email and password are invalid');
-        });
+        .catch(err => {
+            res.status(401).json({ message: 'Login failed', error: err.sqlMessage });
+        })
+};
+
+exports.getUser = (req, res) => {
+    if (!req.headers.authorization) {
+        return res.status(401).send("Please login");
+    }
+
+    const authToken = req.headers.authorization.split(' ')[1];
+
+    jwt.verify(authToken, process.env.JWT_SECRET, (error, payload) => {
+        if (error) {
+          return res.status(403).send('Invalid auth token');
+        } else {
+            knex('users')
+                .where({ email: payload.email })
+                .then((user) => {
+                    res.status(200).send(user[0]);
+                })
+                .catch(err => {
+                    res.status(500).json({ message: 'Authorization failed', error: err.sqlMessage });
+                })
+        }
+    });
 };

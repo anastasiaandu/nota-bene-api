@@ -11,5 +11,9 @@ router
     .route('/login')
     .post(usersController.loginUser);
 
-    
+router
+    .route('/current')
+    .get(usersController.getUser);
+
+
 module.exports = router;
