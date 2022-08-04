@@ -5,7 +5,9 @@ const passport = require('passport');
 require('dotenv').config();
 
 router
-    .get('/google', passport.authenticate('google'));
+    .get('/google', passport.authenticate('google', {
+        scope: ['profile', 'email']
+    }));
 
 router
     .get('/google/redirect',

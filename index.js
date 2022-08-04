@@ -42,41 +42,45 @@ passport.use(
                 if (client.clientSecret != clientSecret) { return done(null, false); }
                 return done(null, client);
             });
-          }
-    ),
-    new GoogleStrategy(
-    {
-        clientID: process.env.GOOGLE_CLIENT_ID,
-        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL: process.env.GOOGLE_CALLBACK_URL
-    },
-    (_accessToken, _refreshToken, profile, done) => {
-        console.log('Google profile:', profile);
+        }
+    )
+);
 
-        knex('users')
-            .select('id')
-            .where({ google_id: profile.id })
-            .then(user => {
-                if (user.length) {
-                    done(null, user[0]);
-                } else {
-                    knex('users')
-                    .insert({
-                        google_id: profile.id,
-                        avatar_url: profile._json.avatar_url,
-                        username: profile.username
-                    })
-                    .then((userId) => {
-                        done(null, { id: userId[0] });
-                    })
-                    .catch((err) => {
-                        console.log(`Error creating a user: ${err}`);
-                    });
-                }
-            })
-            .catch((err) => {
-                console.log(`Error fetching a user: ${err}`);
-            });
+passport.use (
+    new GoogleStrategy(
+        {
+            clientID: process.env.GOOGLE_CLIENT_ID,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+            callbackURL: process.env.GOOGLE_CALLBACK_URL
+        },
+        (_accessToken, _refreshToken, profile, done) => {
+            console.log('Google profile:', profile);
+    
+            knex('users')
+                .select('id')
+                .where({ google_id: profile.id })
+                .then(user => {
+                    if (user.length) {
+                        done(null, user[0]);
+                    } else {
+                        knex('users')
+                        .insert({
+                            google_id: profile.id,
+                            email: profile._json.email,
+                            picture: profile._json.picture,
+                            username: profile.displayName
+                        })
+                        .then((userId) => {
+                            done(null, { id: userId[0] });
+                        })
+                        .catch((err) => {
+                            console.log(`Error creating a user: ${err}`);
+                        });
+                    }
+                })
+                .catch((err) => {
+                    console.log(`Error fetching a user: ${err}`);
+                });
         }
     )
 );
@@ -87,7 +91,6 @@ passport.serializeUser((user, done) => {
 
     done(null, user.id);
 });
-
 
 passport.deserializeUser((userId, done) => {
     console.log('deserializeUser (user id):', userId);
