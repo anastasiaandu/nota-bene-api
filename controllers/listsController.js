@@ -22,8 +22,8 @@ exports.getSingleList = (req, res) => {
 };
 
 exports.addNewList = (req, res) => {
-    if (!req.body.label || !req.body.list) {
-        return res.status(400).send('Please make sure to provide the label and list fields in a request');
+    if (!req.body.label || !req.body.list || !req.body.user_id) {
+        return res.status(400).send('Please make sure to provide the label, list and user_id fields in a request');
     }
 
     knex('lists')
@@ -38,8 +38,8 @@ exports.addNewList = (req, res) => {
 };
 
 exports.updateList = (req, res) => {
-    if (!req.body.label || !req.body.list) {
-        return res.status(400).send('Please make sure to provide the label and list fields in a request');
+    if (!req.body.label || !req.body.list || !req.body.user_id) {
+        return res.status(400).send('Please make sure to provide the label, list and user_id fields in a request');
     }
 
     knex('lists')

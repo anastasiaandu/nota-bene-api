@@ -38,8 +38,8 @@ exports.addNewNote = (req, res) => {
 };
 
 exports.updateNote = (req, res) => {
-    if (!req.body.label || !req.body.note) {
-        return res.status(400).send('Please make sure to provide the label and note fields in a request');
+    if (!req.body.label || !req.body.note || !req.body.user_id) {
+        return res.status(400).send('Please make sure to provide the label, note and user_id fields in a request');
     }
 
     knex('notes')
