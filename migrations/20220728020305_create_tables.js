@@ -16,24 +16,37 @@ exports.up = function(knex) {
             table.text('note').notNullable();
             table.timestamp('updated_at').defaultTo(knex.fn.now());
             table
-            .foreign('user_id')
-            .references('id')
-            .inTable('users')
-            .onUpdate('CASCADE')
-            .onDelete('CASCADE');
+                .foreign('user_id')
+                .references('id')
+                .inTable('users')
+                .onUpdate('CASCADE')
+                .onDelete('CASCADE');
         })
         .createTable('lists', (table) => {
             table.increments('id').primary();
             table.integer('user_id').unsigned().notNullable();
             table.string('label', 75 ).notNullable();
-            table.json('list').notNullable();
+            // table.json('list').notNullable();
             table.timestamp('updated_at').defaultTo(knex.fn.now());
             table
-            .foreign('user_id')
-            .references('id')
-            .inTable('users')
-            .onUpdate('CASCADE')
-            .onDelete('CASCADE');
+                .foreign('user_id')
+                .references('id')
+                .inTable('users')
+                .onUpdate('CASCADE')
+                .onDelete('CASCADE');
+        })
+        .createTable('items', (table) => {
+            table.increments('id').primary();
+            table.integer('list_id').unsigned().notNullable();
+            // table.string('label', 75 ).notNullable();
+            table.text('item').notNullable();
+            table.timestamp('updated_at').defaultTo(knex.fn.now());
+            table
+                .foreign('list_id')
+                .references('id')
+                .inTable('lists')
+                .onUpdate('CASCADE')
+                .onDelete('CASCADE');
         })
         .createTable('files', (table) => {
             table.increments('id').primary();
@@ -42,11 +55,11 @@ exports.up = function(knex) {
             table.text('file').notNullable();
             table.timestamp('updated_at').defaultTo(knex.fn.now());
             table
-            .foreign('user_id')
-            .references('id')
-            .inTable('users')
-            .onUpdate('CASCADE')
-            .onDelete('CASCADE');
+                .foreign('user_id')
+                .references('id')
+                .inTable('users')
+                .onUpdate('CASCADE')
+                .onDelete('CASCADE');
         });
 };
 
@@ -54,6 +67,7 @@ exports.up = function(knex) {
 exports.down = function(knex) {
     return knex.schema
         .dropTable('files')
+        .dropTable('items')
         .dropTable('lists')
         .dropTable('notes')
         .dropTable('users');
