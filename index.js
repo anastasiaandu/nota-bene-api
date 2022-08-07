@@ -110,15 +110,13 @@ passport.deserializeUser((userId, done) => {
 const authRoutes = require('./routes/authRoutes');
 const notesRoutes = require('./routes/notesRoutes');
 const listsRoutes = require('./routes/listsRoutes');
-const itemsRoutes = require('./routes/itemsRoutes');
-// const filesRoutes = require('./routes/filesRoutes');
+const detailsRoutes = require('./routes/detailsRoutes');
 const usersRoutes = require('./routes/usersRoutes');
 
 app.use('/auth', authRoutes);
 app.use('/notes', notesRoutes);
 app.use('/lists', listsRoutes);
-app.use('/items', itemsRoutes);
-// app.use('/files', filesRoutes);
+app.use('/details', detailsRoutes);
 app.use('/users', usersRoutes);
 
 app.listen(PORT, () => {

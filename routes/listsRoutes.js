@@ -11,7 +11,7 @@ router
     .post(listsController.addNewList);
 
 router
-    .route('/:listsId/list/:listId')
+    .route('/:userId/list/:listId')
     .get(listsController.getSingleList)
     .put(listsController.updateList)
     .delete(listsController.deleteList);

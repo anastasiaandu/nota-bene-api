@@ -26,7 +26,7 @@ exports.up = function(knex) {
             table.increments('id').primary();
             table.integer('user_id').unsigned().notNullable();
             table.string('label', 75 ).notNullable();
-            // table.json('list').notNullable();
+            table.text('item').notNullable();
             table.timestamp('updated_at').defaultTo(knex.fn.now());
             table
                 .foreign('user_id')
@@ -35,24 +35,11 @@ exports.up = function(knex) {
                 .onUpdate('CASCADE')
                 .onDelete('CASCADE');
         })
-        .createTable('items', (table) => {
-            table.increments('id').primary();
-            table.integer('list_id').unsigned().notNullable();
-            // table.string('label', 75 ).notNullable();
-            table.text('item').notNullable();
-            table.timestamp('updated_at').defaultTo(knex.fn.now());
-            table
-                .foreign('list_id')
-                .references('id')
-                .inTable('lists')
-                .onUpdate('CASCADE')
-                .onDelete('CASCADE');
-        })
-        .createTable('files', (table) => {
+        .createTable('details', (table) => {
             table.increments('id').primary();
             table.integer('user_id').unsigned().notNullable();
             table.string('label', 75 ).notNullable();
-            table.text('file').notNullable();
+            table.text('detail').notNullable();
             table.timestamp('updated_at').defaultTo(knex.fn.now());
             table
                 .foreign('user_id')
@@ -66,8 +53,7 @@ exports.up = function(knex) {
 
 exports.down = function(knex) {
     return knex.schema
-        .dropTable('files')
-        .dropTable('items')
+        .dropTable('details')
         .dropTable('lists')
         .dropTable('notes')
         .dropTable('users');

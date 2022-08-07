@@ -11,7 +11,7 @@ router
     .post(notesController.addNewNote);
 
 router
-    .route('/:notesId/note/:noteId')
+    .route('/:userId/note/:noteId')
     .get(notesController.getSingleNote)
     .put(notesController.updateNote)
     .delete(notesController.deleteNote);

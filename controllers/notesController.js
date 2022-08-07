@@ -12,7 +12,7 @@ exports.getAllNotes = (req, res) => {
 
 exports.getSingleNote = (req, res) => {
     knex('notes')
-        .where({ user_id: req.params.notesId })
+        .where({ user_id: req.params.userId })
         .where({ id: req.params.noteId })
         .select('id', 'label', 'note', 'user_id', 'updated_at')
         .then((data) => {
@@ -44,7 +44,7 @@ exports.updateNote = (req, res) => {
 
     knex('notes')
         .update(req.body)
-        .where({ user_id: req.params.notesId })
+        .where({ user_id: req.params.userId })
         .where({ id: req.params.noteId })
         .select('id', 'label', 'note', 'user_id', 'updated_at')
         .then((data) => {
@@ -56,7 +56,7 @@ exports.updateNote = (req, res) => {
 exports.deleteNote = (req, res) => {
     knex('notes')
         .delete()
-        .where({ user_id: req.params.notesId })
+        .where({ user_id: req.params.userId })
         .where({ id: req.params.noteId })
         .then(() => {
             res.status(204).json(`Note has been deleted`);
