@@ -13,6 +13,7 @@ require('dotenv').config();
 const PORT = process.env.PORT || 5050;
 
 app.use(express.json());
+app.use(express.static('public'));
 app.use(helmet());
 
 app.use(

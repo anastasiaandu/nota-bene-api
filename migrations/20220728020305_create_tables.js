@@ -27,6 +27,7 @@ exports.up = function(knex) {
             table.integer('user_id').unsigned().notNullable();
             table.string('label', 75 ).notNullable();
             table.text('item').notNullable();
+            table.string('checked', 75 ).notNullable();
             table.timestamp('updated_at').defaultTo(knex.fn.now());
             table
                 .foreign('user_id')

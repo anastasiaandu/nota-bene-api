@@ -8,18 +8,8 @@ module.exports = [
     },
     {
         user_id: 2,
-        label: 'Health',
-        detail: casual.short_description
-    },
-    {
-        user_id: 2,
         label: 'Email',
         detail: casual.email
-    },
-    {
-        user_id: 2,
-        label: 'Gift Idea',
-        detail: casual.string,
     },
     {
         user_id: 2,
@@ -28,7 +18,7 @@ module.exports = [
     },
     {
         user_id: 2,
-        label: 'Movie',
+        label: 'Movie Title',
         detail: casual.title,
     },
     {
@@ -37,29 +27,14 @@ module.exports = [
         detail: casual.phone,
     },
     {
-        user_id: 2,
-        label: 'Address',
-        detail: casual.address,
-    },
-    {
         user_id: 4,
         label: 'Company',
-        detail: casual.short_description
-    },
-    {
-         user_id: 5,
-        label: 'Health',
         detail: casual.short_description
     },
     {
         user_id: 3,
         label: 'Email',
         detail: casual.email
-    },
-    {
-        user_id: 5,
-        label: 'Gift Idea',
-        detail: casual.string,
     },
     {
         user_id: 5,
@@ -75,10 +50,5 @@ module.exports = [
         user_id: 1,
         label: 'Phone Number',
         detail: casual.phone,
-    },
-    {
-        user_id: 3,
-        label: 'Address',
-        detail: casual.address,
-    },
+    }
 ];
