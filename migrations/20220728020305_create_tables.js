@@ -26,6 +26,19 @@ exports.up = function(knex) {
             table.increments('id').primary();
             table.integer('user_id').unsigned().notNullable();
             table.string('label', 75 ).notNullable();
+            table.timestamp('updated_at').defaultTo(knex.fn.now());
+            table
+                .foreign('user_id')
+                .references('id')
+                .inTable('users')
+                .onUpdate('CASCADE')
+                .onDelete('CASCADE');
+        })
+        .createTable('items', (table) => {
+            table.increments('id').primary();
+            table.integer('user_id').unsigned().notNullable();
+            table.integer('list_id').unsigned().notNullable();
+            table.string('label', 75 ).notNullable();
             table.text('item').notNullable();
             table.string('checked', 75 ).notNullable();
             table.timestamp('updated_at').defaultTo(knex.fn.now());
@@ -33,6 +46,12 @@ exports.up = function(knex) {
                 .foreign('user_id')
                 .references('id')
                 .inTable('users')
+                .onUpdate('CASCADE')
+                .onDelete('CASCADE');
+            table
+                .foreign('list_id')
+                .references('id')
+                .inTable('lists')
                 .onUpdate('CASCADE')
                 .onDelete('CASCADE');
         })
@@ -55,6 +74,7 @@ exports.up = function(knex) {
 exports.down = function(knex) {
     return knex.schema
         .dropTable('details')
+        .dropTable('items')
         .dropTable('lists')
         .dropTable('notes')
         .dropTable('users');
