@@ -97,16 +97,6 @@ module.exports = [
         note: casual.sentences(2),
     },
     {
-        user_id: 3,
-        label: 'IWD',
-        note: casual.sentences(7),
-    },
-    {
-        user_id: 2,
-        label: 'IWD',
-        note: casual.sentences(2),
-    },
-    {
         user_id: 2,
         label: 'Scalp Psoriasis',
         note: casual.sentences(7),
@@ -115,5 +105,15 @@ module.exports = [
         user_id: 2,
         label: 'A kindness of Pandas',
         note: casual.sentences(8),
+    },
+    {
+        user_id: 3,
+        label: 'IWD',
+        note: casual.sentences(7),
+    },
+    {
+        user_id: 2,
+        label: 'IWD',
+        note: casual.sentences(2),
     }
 ];

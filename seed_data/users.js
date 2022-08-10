@@ -9,9 +9,16 @@ module.exports = [
         username: 'Tony Stark'
     },
     {
+        google_id: 75836584,
+        email: 'monica.geller@gmail.com',
+        password: bcrypt.hashSync('1234', 8),
+        picture: 'https://picsum.photos/seed/picsum/200/300',
+        username: 'Monica Geller'
+    },
+    {
         google_id: 86508234,
         email: 'john.doe@gmail.com',
-        password: bcrypt.hashSync('1234', 8),
+        password: bcrypt.hashSync('johnny234', 8),
         picture: 'https://picsum.photos/seed/picsum/200/300',
         username: 'John Doe'
     },
