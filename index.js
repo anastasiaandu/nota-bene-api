@@ -4,9 +4,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const knex = require('knex')(require('./knexfile').development);
 const passport = require('passport');
-const ClientPasswordStrategy = require('passport-oauth2-client-password').Strategy;
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const jwt = require('jsonwebtoken');
 const app = express();
 
 require('dotenv').config();
@@ -33,19 +31,6 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
-
-passport.use(
-    new ClientPasswordStrategy(
-        function(clientId, clientSecret, done) {
-            Clients.findOne({ clientId: clientId }, function (err, client) {
-                if (err) { return done(err); }
-                if (!client) { return done(null, false); }
-                if (client.clientSecret != clientSecret) { return done(null, false); }
-                return done(null, client);
-            });
-        }
-    )
-);
 
 passport.use (
     new GoogleStrategy(
